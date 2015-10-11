@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/colorPageDark</color>
+    <color name="colorPrimaryDark">@color/colorPageDark</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorText">#303030</color>
+
+    <color name="colorPageLight">#FEEEB6</color>
+    <color name="colorPageDark">#FECB2F</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+</resources>
