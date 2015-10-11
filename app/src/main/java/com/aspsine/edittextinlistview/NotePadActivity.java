@@ -19,7 +19,7 @@ public class NotePadActivity extends AppCompatActivity {
 
     private static final int PAGE_NUM = 20;
 
-    private List<NotePageBaseFragment> notePages;
+    private List<NotePageBaseFragment> mNotePages;
 
     private PageController mController;
 
@@ -55,15 +55,15 @@ public class NotePadActivity extends AppCompatActivity {
     }
 
     private void initNotePad() {
-        notePages = new LinkedList<>();
+        mNotePages = new LinkedList<>();
         NoteCoverFragment cover = new NoteCoverFragment();
-        notePages.add(cover);
+        mNotePages.add(cover);
         for (int i = 0; i < PAGE_NUM; i++) {
             NotePageFragment page = NotePageFragment.newInstance(i);
-            notePages.add(page);
+            mNotePages.add(page);
         }
         NoteEndCoverFragment endCover = new NoteEndCoverFragment();
-        notePages.add(endCover);
+        mNotePages.add(endCover);
     }
 
     private void initPager() {
@@ -123,12 +123,12 @@ public class NotePadActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return notePages.get(position);
+            return mNotePages.get(position);
         }
 
         @Override
         public int getCount() {
-            return notePages.size();
+            return mNotePages.size();
         }
     }
 }
