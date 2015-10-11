@@ -21,6 +21,6 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="100dp"
         android:layout_gravity="bottom|right"
-        android:text="Apsine"/>
+        android:text="Aspsine"/>
 
 </FrameLayout>
