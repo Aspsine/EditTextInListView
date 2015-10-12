@@ -2,7 +2,7 @@
 Demonstrate how to put EidtText widget in ListView as an item.
 
 ## Demo
-![Download](https://raw.githubusercontent.com/Aspsine/EditTextInListView/master/art/notepad.apk)
+[Download](https://raw.githubusercontent.com/Aspsine/EditTextInListView/master/art/notepad.apk)
 
 ## ScreenShot
 
