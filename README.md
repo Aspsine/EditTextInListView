@@ -53,10 +53,10 @@ public View getView(final int position, View convertView, final ViewGroup parent
 	// why?
 	//
 	// note: ListView has a very elegant recycle algorithm. So views in ListView is not reliable.
-	//       Especially in the case EditText as an item of ListView. Software input window may cause
-	//       the ListView onLayout() lead adapter's getView() invoke many times.
+	//       Especially in this case, EditText is an item of ListView. Software input window may cause
+	//       ListView's relayout lead adapter's getView() invoke many times.
 	//       Above all if we change EditText's focus state directly in EditText level(not in Adapter). 
-	//       The focus state must be messed up when the particularly view reused in other position. 
+	//       The focus state may be messed up when the particularly view reused in other position. 
 	//       
 	//       So using data source control View's state is the core to deal with this problem.	
 	if (line.isFocus()) {
@@ -65,11 +65,11 @@ public View getView(final int position, View convertView, final ViewGroup parent
 		holder.etLine.clearFocus();
 	}
 	
-	// step 3: set OnTouchListener(a callback) to EditText to update focus status indicator in data source
+	// step 3: set an OnTouchListener to EditText to update focus status indicator in data source
 	// why?
 	// 
 	// in step 2, we know we must control view state through data source. We use OnTouchListener
-	// to watch the state change and  update the data source when user move up fingers(ACTION_UP).
+	// to watch the state change and update the data source when user move up fingers(ACTION_UP).
 	// We don't want to consume the touch event, simply return false in method onTouch().
 	holder.etLine.setOnTouchListener(new View.OnTouchListener() {
 		@Override
@@ -86,7 +86,7 @@ public View getView(final int position, View convertView, final ViewGroup parent
 	// 
 	// again, use data source to control view state.
 	// When user edit the text in one EditText item and scroll the ListView. The particularly EditText item will be
-	// reuse in adapter'getView(), this may lead text messed up in ListView.
+	// reuse in adapter's getView(), this may lead text messed up in ListView.
 	// How to deal with this problem?
 	// Easy! We update the text in data source at the same time when user is editing. TextWatcher is the best way to
 	// do this.
@@ -103,8 +103,9 @@ public View getView(final int position, View convertView, final ViewGroup parent
 	};
 	holder.etLine.addTextChangedListener(watcher);
 	
-	// step 5: Set watcher as a tag of EditText, so we can remove the same object setted to EditText 
-	// to make sure only one callback is attached in EditText
+	// step 5: Set watcher as a tag of EditText.
+	// so we can remove the same object which was setted to EditText in step 4;
+	// Make sure only one callback is attached to EditText
 	holder.etLine.setTag(watcher);
 
 	return convertView;
