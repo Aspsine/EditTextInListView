@@ -52,17 +52,6 @@ public class LineAdapter extends BaseAdapter {
 
         final Line line = lines.get(position);
 
-        final TextWatcher watcher = new SimpeTextWather() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    line.setText(null);
-                } else {
-                    line.setText(String.valueOf(s));
-                }
-            }
-        };
         if (holder.etLine.getTag() instanceof TextWatcher) {
             holder.etLine.removeTextChangedListener((TextWatcher) (holder.etLine.getTag()));
         }
@@ -91,6 +80,17 @@ public class LineAdapter extends BaseAdapter {
             }
         });
 
+        final TextWatcher watcher = new SimpeTextWather() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    line.setText(null);
+                } else {
+                    line.setText(String.valueOf(s));
+                }
+            }
+        };
         holder.etLine.addTextChangedListener(watcher);
         holder.etLine.setTag(watcher);
 

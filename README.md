@@ -9,75 +9,76 @@ Demonstrate how to put EidtText widget in ListView as an item.
 
 ```java
 
-@Override
-public View getView(final int position, View convertView, final ViewGroup parent) {
-	final ViewHolder holder;
-	if (convertView == null) {
-		holder = new ViewHolder();
-		convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_line, parent, false);
-		holder.etLine = (EditText) convertView.findViewById(R.id.etLine);
-		convertView.setTag(holder);
-	} else {
-		holder = (ViewHolder) convertView.getTag();
-	}
+    @Override
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+        final ViewHolder holder;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_line, parent, false);
+            holder.etLine = (EditText) convertView.findViewById(R.id.etLine);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-	final Line line = lines.get(position);
+        final Line line = lines.get(position);
+        
+        if (holder.etLine.getTag() instanceof TextWatcher) {
+            holder.etLine.removeTextChangedListener((TextWatcher) (holder.etLine.getTag()));
+        }
 
-	final TextWatcher watcher = new SimpeTextWather() {
+        holder.etLine.setHint(position + ".");
 
-		@Override
-		public void afterTextChanged(Editable s) {
-			if (TextUtils.isEmpty(s)) {
-				line.setText(null);
-			} else {
-				line.setText(String.valueOf(s));
-			}
-		}
-	};
-	if (holder.etLine.getTag() instanceof TextWatcher) {
-		holder.etLine.removeTextChangedListener((TextWatcher) (holder.etLine.getTag()));
-	}
+        if (TextUtils.isEmpty(line.getText())) {
+            holder.etLine.setTextKeepState("");
+        } else {
+            holder.etLine.setTextKeepState(line.getText());
+        }
 
-	holder.etLine.setHint(position + ".");
+        if (line.isFocus()) {
+            holder.etLine.requestFocus();
+        } else {
+            holder.etLine.clearFocus();
+        }
 
-	if (TextUtils.isEmpty(line.getText())) {
-		holder.etLine.setTextKeepState("");
-	} else {
-		holder.etLine.setTextKeepState(line.getText());
-	}
+        holder.etLine.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    check(position);
+                }
+                return false;
+            }
+        });
 
-	if (line.isFocus()) {
-		holder.etLine.requestFocus();
-	} else {
-		holder.etLine.clearFocus();
-	}
+        final TextWatcher watcher = new SimpeTextWather() {
 
-	holder.etLine.setOnTouchListener(new View.OnTouchListener() {
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			if (event.getAction() == MotionEvent.ACTION_UP) {
-				check(position);
-			}
-			return false;
-		}
-	});
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    line.setText(null);
+                } else {
+                    line.setText(String.valueOf(s));
+                }
+            }
+        };
+        holder.etLine.addTextChangedListener(watcher);
+        holder.etLine.setTag(watcher);
 
-	holder.etLine.addTextChangedListener(watcher);
-	holder.etLine.setTag(watcher);
+        return convertView;
+    }
 
-	return convertView;
-}
+    private void check(int position) {
+        for (Line l : lines) {
+            l.setFocus(false);
+        }
+        lines.get(position).setFocus(true);
+    }
 
-private void check(int position) {
-	for (Line l : lines) {
-		l.setFocus(false);
-	}
-	lines.get(position).setFocus(true);
-}
+    static class ViewHolder {
+        EditText etLine;
+    }
 
-static class ViewHolder {
-	EditText etLine;
-}
 
 ```
 
