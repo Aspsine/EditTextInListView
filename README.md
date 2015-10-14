@@ -22,9 +22,9 @@ public View getView(final int position, View convertView, final ViewGroup parent
 	}
 
 	final Line line = lines.get(position);
+	
 	// step 1: remove android.text.TextWatcher added in step 5 to make sure android.text.TextWatcher 
 	//         don't trigger in step 2;
-	//
 	// why?
 	// 
 	// note: When an object of a type is attached to an Editable, 
