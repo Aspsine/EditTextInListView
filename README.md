@@ -6,7 +6,7 @@ Demonstrate how to put EidtText widget in ListView as an item.
 
 ## Code Instruction
 
-[com.aspsine.edittextinlistview.LineAdapter](https://github.com/Aspsine/EditTextInListView/blob/master/app/src/main/java/com/aspsine/edittextinlistview/LineAdapter.java#L42)
+[com.aspsine.edittextinlistview.LineAdapter#getView()](https://github.com/Aspsine/EditTextInListView/blob/master/app/src/main/java/com/aspsine/edittextinlistview/LineAdapter.java#L42)
 
 ```java
 @Override
