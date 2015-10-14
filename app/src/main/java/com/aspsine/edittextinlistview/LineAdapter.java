@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by aspsine on 15/10/11.
+ *
  */
 public class LineAdapter extends BaseAdapter {
 
