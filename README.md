@@ -54,7 +54,7 @@ public View getView(final int position, View convertView, final ViewGroup parent
 	//
 	// note: ListView has a very elegant recycle algorithm. So views in ListView is not reliable.
 	//       Especially in this case, EditText is an item of ListView. Software input window may cause
-	//       ListView's relayout lead adapter's getView() invoke many times.
+	//       ListView relayout leading adapter's getView() invoke many times.
 	//       Above all if we change EditText's focus state directly in EditText level(not in Adapter). 
 	//       The focus state may be messed up when the particularly view reused in other position. 
 	//       
