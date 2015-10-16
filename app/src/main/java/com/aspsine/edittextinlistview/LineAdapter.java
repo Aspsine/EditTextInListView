@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  * Created by aspsine on 15/10/11.
- *
  */
 public class LineAdapter extends BaseAdapter {
 
@@ -60,22 +59,33 @@ public class LineAdapter extends BaseAdapter {
         holder.etLine.setHint(position + ".");
 
         if (TextUtils.isEmpty(line.getText())) {
-            holder.etLine.setTextKeepState("");
+            holder.etLine.setText("");
         } else {
-            holder.etLine.setTextKeepState(line.getText());
+            holder.etLine.setText(line.getText());
         }
 
         if (line.isFocus()) {
-            holder.etLine.requestFocus();
+            if (!holder.etLine.isFocused()) {
+                holder.etLine.requestFocus();
+            }
+            CharSequence text = line.getText();
+            holder.etLine.setSelection(TextUtils.isEmpty(text) ? 0 : text.length());
         } else {
-            holder.etLine.clearFocus();
+            if (holder.etLine.isFocused()) {
+                holder.etLine.clearFocus();
+            }
         }
 
         holder.etLine.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public boolean onTouch(final View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
+                    final boolean focus = line.isFocus();
                     check(position);
+                    if (!focus || !holder.etLine.isFocused()) {
+                        holder.etLine.requestFocus();
+                        holder.etLine.onWindowFocusChanged(true);
+                    }
                 }
                 return false;
             }
