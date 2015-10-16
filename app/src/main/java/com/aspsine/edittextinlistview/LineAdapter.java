@@ -82,7 +82,7 @@ public class LineAdapter extends BaseAdapter {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     final boolean focus = line.isFocus();
                     check(position);
-                    if (!focus || !holder.etLine.isFocused()) {
+                    if (!focus && !holder.etLine.isFocused()) {
                         holder.etLine.requestFocus();
                         holder.etLine.onWindowFocusChanged(true);
                     }
