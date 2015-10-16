@@ -60,9 +60,16 @@ public View getView(final int position, View convertView, final ViewGroup parent
 	//       
 	//       So using data source control View's state is the core to deal with this problem.	
 	if (line.isFocus()) {
-		holder.etLine.requestFocus();
+		if (!holder.etLine.isFocused()) {
+			holder.etLine.requestFocus();
+		}
+		CharSequence text = line.getText();
+		// reset cursor.
+		holder.etLine.setSelection(TextUtils.isEmpty(text) ? 0 : text.length());
 	} else {
-		holder.etLine.clearFocus();
+		if (holder.etLine.isFocused()) {
+			holder.etLine.clearFocus();
+		}
 	}
 	
 	// step 3: set an OnTouchListener to EditText to update focus status indicator in data source
@@ -76,6 +83,11 @@ public View getView(final int position, View convertView, final ViewGroup parent
 		public boolean onTouch(View v, MotionEvent event) {
 			if (event.getAction() == MotionEvent.ACTION_UP) {
 				check(position);
+				// make cursor blink
+				if (!focus || !holder.etLine.isFocused()) {
+					holder.etLine.requestFocus();
+					holder.etLine.onWindowFocusChanged(true);
+				}
 			}
 			return false;
 		}
