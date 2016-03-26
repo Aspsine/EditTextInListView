@@ -70,10 +70,13 @@ public class LineAdapter extends BaseAdapter {
             }
             CharSequence text = line.getText();
             holder.etLine.setSelection(TextUtils.isEmpty(text) ? 0 : text.length());
+            // 使光标闪烁
+            holder.etLine.setCursorVisible(true);
         } else {
             if (holder.etLine.isFocused()) {
                 holder.etLine.clearFocus();
             }
+            holder.etLine.setCursorVisible(false);
         }
 
         holder.etLine.setOnTouchListener(new View.OnTouchListener() {
@@ -105,6 +108,21 @@ public class LineAdapter extends BaseAdapter {
         holder.etLine.addTextChangedListener(watcher);
         holder.etLine.setTag(watcher);
 
+        // 第6步：设置OnFocusChangeListener当EditText获取焦点后重新设置光标visible为true。
+        //
+        // 通过以上5步虽然可以解决焦点混乱的问题，但是在EditText的Text内容为空时
+        // 当前获取到焦点的EditText不一定能显示光标。
+        // 确保只有获取到焦点的view的CursorVisible为true。
+        holder.etLine.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    holder.etLine.setCursorVisible(true);
+                } else {
+                    holder.etLine.setCursorVisible(false);
+                }
+            }
+        });
         return convertView;
     }
 
