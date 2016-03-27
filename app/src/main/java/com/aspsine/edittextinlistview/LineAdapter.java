@@ -96,7 +96,7 @@ public class LineAdapter extends BaseAdapter {
                     check(position);
                     if (!focus && !holder.etLine.isFocused()) {
                         holder.etLine.requestFocus();
-//                        holder.etLine.onWindowFocusChanged(true);
+                        holder.etLine.onWindowFocusChanged(true);
                     }
                 }
                 return false;
