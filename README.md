@@ -1,3 +1,6 @@
+#DEPRECATED
+Please use RecyclerView instead.
+
 # EditTextInListView
 Demonstrate how to put EidtText widget in ListView as an item.
 
