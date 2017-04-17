@@ -1,4 +1,4 @@
-#DEPRECATED
+# DEPRECATED
 Please use RecyclerView instead.
 
 # EditTextInListView
