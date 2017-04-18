@@ -52,6 +52,18 @@ public class LineAdapter extends BaseAdapter {
 
         final Line line = lines.get(position);
 
+        holder.etLine.setCursorVisible(false);//确保只有获取焦点的EditText才能显示光标
+        holder.etLine.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    holder.etLine.setCursorVisible(true);
+                } else {
+                    holder.etLine.setCursorVisible(false);
+                }
+            }
+        });
+
         if (holder.etLine.getTag() instanceof TextWatcher) {
             holder.etLine.removeTextChangedListener((TextWatcher) (holder.etLine.getTag()));
         }
